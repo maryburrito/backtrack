@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Assessments</h2>
+    <ul>
+        {% for assessment in object_list %}
+        <li style="padding: 0.25rem; margin: 0.25rem; border: 1px solid black;">
+            {{assessment.id}}: {{assessment.standard.statement_name}} {{assessment.student.first_name}}
+            {{assessment.student.last_name}} {{assessment.score}}
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %} 

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Standards</h2>
+    <ul>
+        {% for standard in object_list %}
+        <li style="padding: 0.25rem; margin: 0.25rem; border: 1px solid black;">
+            {{standard.id}}: {{standard.statement_name}}
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %} 
