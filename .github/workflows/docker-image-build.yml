@@ -1,0 +1,9 @@
+name: Docker Image Builds
+on: [push]
+jobs:
+  build-server:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build Backtrack Docker image
+      run: docker build . --file Dockerfile --label "git_sha=${GITHUB_SHA}" --tag backtrack-server:$(echo $GITHUB_SHA | cut -c 1-7)
