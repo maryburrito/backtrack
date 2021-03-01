@@ -8,6 +8,7 @@ authors = ["Mary <maryburrito@gmail.com>"]
 python = "^3.7.2"
 Django = "^3.1.6"
 django-bootstrap4 = "^2.3.1"
+psycopg2-binary = "^2.8.6"
 
 [tool.poetry.dev-dependencies]
 
