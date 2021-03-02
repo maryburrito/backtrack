@@ -18,7 +18,7 @@ jobs:
       with:
         name: docker.pkg.github.com/maryburrito/backtrack/backtrack-server:latest
         username: maryburrito
-        password: ${{ secrets.PACKAGE_REGISTRY_PASSWORD }}
+        password: ${{ secrets.GITHUB_TOKEN }}
         registry: docker.pkg.github.com
         context: .
         dockerfile: Dockerfile
