@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# Collect static files into a common location
+./manage.py collectstatic --no-input --clear
+
+# Apply any outstanding migrations
+./manage.py migrate
+
+# To specify number of threads, define ASGI_THREADS
+# By default, asgi uses <num CPUs> * 5
+daphne --bind 0.0.0.0 --port 8000 pharmath.routing:application

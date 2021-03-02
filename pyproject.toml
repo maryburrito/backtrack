@@ -8,6 +8,8 @@ authors = ["Mary <maryburrito@gmail.com>"]
 python = "^3.7.2"
 Django = "^3.1.6"
 django-bootstrap4 = "^2.3.1"
+dj-database-url = { git = "https://github.com/parrotmac/dj-database-url.git", rev = "9decb05" }
+psycopg2-binary = "^2.8.6"
 
 [tool.poetry.dev-dependencies]
 

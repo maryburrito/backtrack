@@ -1,0 +1,25 @@
+name: Release Project Container
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main
+jobs:
+  release-server:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build Backtrack's Docker image
+      run: docker build . --file Dockerfile --tag backtrack-server:latest
+    - name: Publish Backtrack Server to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: docker.pkg.github.com/maryburrito/backtrack/backtrack-server:latest
+        username: maryburrito
+        password: ${{ secrets.PACKAGE_REGISTRY_PASSWORD }}
+        registry: docker.pkg.github.com
+        context: .
+        dockerfile: Dockerfile
+        buildoptions: "--label git_sha=${GITHUB_SHA}"

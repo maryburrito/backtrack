@@ -9,6 +9,8 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+import os
+import dj_database_url
 
 from pathlib import Path
 
@@ -20,12 +22,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'rqwnxb7o#+yf5il-ja=8p2^tx2tt0zq5yie7uj@m&gf9l_g4^+'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'rqwnxb7o#+yf5il-ja=8p2^tx2tt0zq5yie7uj@m&gf9l_g4^+')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'ENABLED') == 'ENABLED'
 
 ALLOWED_HOSTS = []
+
+env_allowed_hosts = os.getenv('ALLOWED_HOSTS')
+if env_allowed_hosts:
+    ALLOWED_HOSTS += env_allowed_hosts.split(',')
 
 
 # Application definition
@@ -43,6 +49,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -82,6 +89,11 @@ DATABASES = {
     }
 }
 
+db_url = os.getenv("DATABASE_URL")
+if db_url:
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -120,3 +132,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.environ.get("DJANGO_STATIC_ROOT", os.path.join(BASE_DIR, 'staticfiles'))
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
