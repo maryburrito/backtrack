@@ -1,46 +1,46 @@
 {% extends "base.html" %}
 {% block content %}
-    <h2>Students</h2>
-    
-    <a class="btn btn-success btn-sm mb-3" href="{% url "student-add" %}" role="button">
-        Create New Student
-        <i class="bi bi-person-plus"></i>
-    </a>
+<h2>Students</h2>
 
-    <table class="table">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Active</th>
-          </tr>
-        </thead>
-        <tbody>
-        {% for student in object_list %}
-          <tr>
-            <th scope="row">
-                <a href="{% url "student-detail" pk=student.pk %}">
-                    {{student.id}}
-                    </a>
-                </th>
-            <td>
-                <a href="{% url "student-detail" pk=student.pk %}">
-                {{student.first_name}}
-            </a>
-            </td>
-            <td>
-                <a href="{% url "student-detail" pk=student.pk %}">{{student.last_name}} 
-            </a>
-        </td>
-        <td>
-            <a href="{% url "student-detail" pk=student.pk %}">
-        {{student.active}}
+<a class="btn btn-success btn-sm mb-3" href="{% url " student-add" %}" role="button">
+  Create New Student
+  <i class="bi bi-person-plus"></i>
+</a>
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Active</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for student in object_list %}
+    <tr>
+      <th scope="row">
+        <a href="{% url " student-detail" pk=student.pk %}">
+          {{student.id}}
         </a>
-    </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    
-{% endblock %} 
+      </th>
+      <td>
+        <a href="{% url " student-detail" pk=student.pk %}">
+          {{student.first_name}}
+        </a>
+      </td>
+      <td>
+        <a href="{% url " student-detail" pk=student.pk %}">{{student.last_name}}
+        </a>
+      </td>
+      <td>
+        <a href="{% url " student-detail" pk=student.pk %}">
+          {{student.active}}
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

@@ -1,11 +1,32 @@
 {% extends "base.html" %}
 {% block content %}
-    <h2>Standards</h2>
-    <ul>
-        {% for standard in object_list %}
-        <li style="padding: 0.25rem; margin: 0.25rem; border: 1px solid black;">
-            {{standard.id}}: {{standard.statement_name}}
-        </li>
-        {% endfor %}
-    </ul>
-{% endblock %} 
+<h2>Standards</h2>
+<a class="btn btn-success btn-sm mb-3" href="{% url " standard-add" %}" role="button">
+  Create A New Standard
+  <i class="bi bi-plus-circle"></i>
+</a>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Standard</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for standard in object_list %}
+    <tr>
+      <th scope="row">
+        <a href="{% url " standard-detail" pk=standard.pk %}">
+          {{standard.id}}
+        </a>
+      </th>
+      <td>
+        <a href="{% url " standard-detail" pk=standard.pk %}">
+          {{standard.statement_name}}
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
