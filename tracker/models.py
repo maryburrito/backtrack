@@ -32,7 +32,7 @@ class Student(TimestampedBaseModel):
     last_name = models.CharField(max_length=50, null=False, blank=False)
 
     def __str__(self):
-        return f"{self.id} {self.first_name} {self.last_name}"
+        return f" {self.first_name} {self.last_name}"
 
     
     def get_absolute_url(self):
@@ -45,6 +45,9 @@ class Standard(TimestampedBaseModel):
 
     def get_absolute_url(self):
         return reverse('standard-detail', kwargs={'pk': self.pk})
+    
+    def __str__(self):
+        return f" {self.statement_name}"
 
 class Assessment(TimestampedBaseModel):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
