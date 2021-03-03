@@ -2,7 +2,7 @@
 {% block content %}
 <h2>Students</h2>
 
-<a class="btn btn-success btn-sm mb-3" href="{% url " student-add" %}" role="button">
+<a class="btn btn-success btn-sm mb-3" href="{% url "student-add" %}" role="button">
   Create New Student
   <i class="bi bi-person-plus"></i>
 </a>
@@ -20,21 +20,21 @@
     {% for student in object_list %}
     <tr>
       <th scope="row">
-        <a href="{% url " student-detail" pk=student.pk %}">
+        <a href="{% url "student-detail" pk=student.pk %}">
           {{student.id}}
         </a>
       </th>
       <td>
-        <a href="{% url " student-detail" pk=student.pk %}">
+        <a href="{% url "student-detail" pk=student.pk %}">
           {{student.first_name}}
         </a>
       </td>
       <td>
-        <a href="{% url " student-detail" pk=student.pk %}">{{student.last_name}}
+        <a href="{% url "student-detail" pk=student.pk %}">{{student.last_name}}
         </a>
       </td>
       <td>
-        <a href="{% url " student-detail" pk=student.pk %}">
+        <a href="{% url "student-detail" pk=student.pk %}">
           {{student.active}}
         </a>
       </td>

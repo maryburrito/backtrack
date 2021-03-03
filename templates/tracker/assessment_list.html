@@ -2,7 +2,7 @@
 {% block content %}
 <h2>Assessments</h2>
 
-<a class="btn btn-success btn-sm mb-3" href="{% url " assessment-add" %}" role="button">
+<a class="btn btn-success btn-sm mb-3" href="{% url "assessment-add" %}" role="button">
     Create New Assessment
     <i class="bi bi-person-plus"></i>
 </a>
@@ -22,32 +22,32 @@
         {% for assessment in object_list %}
         <tr>
             <th scope="row">
-                <a href="{% url " assessment-detail" pk=assessment.pk %}">
+                <a href="{% url "assessment-detail" pk=assessment.pk %}">
                     {{assessment.id}}
                 </a>
             </th>
             <td>
-                <a href="{% url " assessment-detail" pk=assessment.pk %}">
+                <a href="{% url "assessment-detail" pk=assessment.pk %}">
                     {{assessment.standard.statement_name}}
                 </a>
             </td>
             <td>
-                <a href="{% url " assessment-detail" pk=assessment.pk %}">
+                <a href="{% url "assessment-detail" pk=assessment.pk %}">
                     {{assessment.student.first_name}}
                 </a>
             </td>
             <td>
-                <a href="{% url " assessment-detail" pk=assessment.pk %}">
+                <a href="{% url "assessment-detail" pk=assessment.pk %}">
                     {{assessment.student.last_name}}
                 </a>
             </td>
             <td>
-                <a href="{% url " assessment-detail" pk=assessment.pk %}">
+                <a href="{% url "assessment-detail" pk=assessment.pk %}">
                     {{assessment.score}}
                 </a>
             </td>
             <td>
-                <a href="{% url " assessment-detail" pk=assessment.pk %}">
+                <a href="{% url "assessment-detail" pk=assessment.pk %}">
                     {{assessment.active}}
                 </a>
             </td>
