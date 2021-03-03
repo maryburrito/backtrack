@@ -10,6 +10,8 @@ Django = "^3.1.6"
 django-bootstrap4 = "^2.3.1"
 dj-database-url = { git = "https://github.com/parrotmac/dj-database-url.git", rev = "9decb05" }
 psycopg2-binary = "^2.8.6"
+daphne = "^3.0.1"
+whitenoise = "^5.2.0"
 
 [tool.poetry.dev-dependencies]
 
