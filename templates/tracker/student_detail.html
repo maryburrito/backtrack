@@ -10,13 +10,13 @@
             Active: {{object.active}}
         </p>
         <div class="btn-group">
-        <a href="{% url "student-list" %}" class="btn btn-primary">
+        <a href="{% url "student-list" %}" class="btn btn-primary btn-sm ml-2">
             Go Back to Student List
         </a>
-        <a href="{% url "student-update" pk=object.pk %}" class="btn btn-warning">
+        <a href="{% url "student-update" pk=object.pk %}" class="btn btn-warning btn-sm ml-2">
             Edit Student
         </a>
-        <a href="{% url "student-delete" pk=object.pk %}" class="btn btn-danger">
+        <a href="{% url "student-delete" pk=object.pk %}" class="btn btn-danger btn-sm ml-2">
             Delete Student
         </a>
         </div>

@@ -5,7 +5,7 @@ from django.urls import reverse, reverse_lazy
 
 # list resources, create resources, read resources, update resources, and delete resources (CRUDL - Create, Read, Updadta, Delete)
 # Django Admin - CRUD application , roles associated with each CRUD action 
-# DetailView - biew details about an object, ListView - lists items, FormView, CreateView, UpdateView, DeleteView 
+# DetailView - view details about an object, ListView - lists items, FormView, CreateView, UpdateView, DeleteView 
 # since Django knows about data models (models.py) 
 #URLs: Paths, query parameters, ect. 
 #Scheme - HTTPS , host - domain using, path - the resource , query string - affect data displays, hash location - refer to somethin on the page
@@ -49,17 +49,20 @@ class StandardList (ListView):
 
 class StandardCreate(CreateView):
     model = Standard
-    fields = ['name']
+    fields = ['active', 'statement_name']
 
 
 class StandardUpdate(UpdateView):
     model = Standard
-    fields = ['name']
+    fields = ['active', 'statement_name']
 
 
 class StandardDelete(DeleteView):
     model = Standard
-    success_url = reverse_lazy('student-list')
+    success_url = reverse_lazy('standard-list')
+
+class StandardDetail(DetailView):
+    model = Standard
 
 
 class AssessmentList (ListView):
@@ -68,17 +71,20 @@ class AssessmentList (ListView):
 
 class AssessmentCreate(CreateView):
     model = Assessment
-    fields = ['name']
+    fields = ['student', 'standard', 'score']
 
 
 class AssessmentUpdate(UpdateView):
     model = Assessment
-    fields = ['name']
+    fields = ['student', 'standard', 'score']
 
 
 class AssessmentDelete(DeleteView):
     model = Assessment
-    success_url = reverse_lazy('student-list')
+    success_url = reverse_lazy('assessment-list')
+
+class AssessmentDetail(DetailView):
+    model = Assessment
 
 
     #  def get_query(self):

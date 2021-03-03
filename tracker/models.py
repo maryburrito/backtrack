@@ -43,6 +43,9 @@ class Standard(TimestampedBaseModel):
     active = models.BooleanField(default=True)
     statement_name = models.CharField(max_length=100, null=False, blank=False)
 
+    def get_absolute_url(self):
+        return reverse('standard-detail', kwargs={'pk': self.pk})
+
 class Assessment(TimestampedBaseModel):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     standard = models.ForeignKey(Standard, on_delete=models.CASCADE)
@@ -52,4 +55,8 @@ class Assessment(TimestampedBaseModel):
         if self.score < 1 or self.score > 4:
             raise ValueError("score must between 1 and 4 inclusive")
         return super(Assessment, self).save(*args, **kwargs)
+    
+
+    def get_absolute_url(self):
+        return reverse('assessment-detail', kwargs={'pk': self.pk})
 
