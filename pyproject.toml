@@ -5,7 +5,7 @@ description = ""
 authors = ["Mary <maryburrito@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.7.2"
+python = "^3.9.2"
 Django = "^3.1.6"
 django-bootstrap4 = "^2.3.1"
 dj-database-url = { git = "https://github.com/parrotmac/dj-database-url.git", rev = "9decb05" }
@@ -14,6 +14,7 @@ daphne = "^3.0.1"
 whitenoise = "^5.2.0"
 
 [tool.poetry.dev-dependencies]
+autopep8 = "^1.5.5"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

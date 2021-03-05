@@ -1,6 +1,11 @@
 from django.db import models
 from django.utils import timezone
 from django.urls import reverse
+from django.contrib.auth.forms import AuthenticationForm
+
+class AuthenticationFormWithInactiveUsersOkay(AuthenticationForm):
+    def confirm_login_allowed(self, user):
+        pass
 
 class TimestampedBaseModel(models.Model):
     class Meta:
@@ -30,6 +35,7 @@ class Student(TimestampedBaseModel):
     active = models.BooleanField(default=True)
     first_name = models.CharField(max_length=50, null=False, blank=False)
     last_name = models.CharField(max_length=50, null=False, blank=False)
+   
 
     def __str__(self):
         return f" {self.first_name} {self.last_name}"

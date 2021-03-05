@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse, reverse_lazy
 
@@ -15,10 +14,62 @@ from django.urls import reverse, reverse_lazy
 
 
 from tracker.models import Student, Standard, Assessment
+from django.shortcuts import redirect
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import logout
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib import messages
 
 
-def hello_world(request):
-    return HttpResponse("Hello, world!")
+
+def login(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request=request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.info(request, f"You are now logged in as {username}")
+                return redirect('/')
+            else:
+                messages.error(request, "Invalid username or password.")
+        else:
+            messages.error(request, "Invalid username or password.")
+    form = AuthenticationForm()
+    return render(request = request,
+                    template_name = "login.html",
+                    context={"form":form})
+
+def signup(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return redirect('home')
+        else:
+            return render(request, 'signup.html', {'form': form})
+    else:
+        form = UserCreationForm()
+        return render(request, 'signup.html', {'form': form})
+
+def signout(request):
+    logout(request)
+    # TODO : use signout.html to confirm user signout 
+    return redirect('home')
+
+
+
+def home(request):
+    return render(request, "home.html")
 
 
 class StudentList(ListView):
@@ -41,6 +92,7 @@ class StudentDelete(DeleteView):
 
 class StudentDetail(DetailView):
     model = Student
+    fields = ['active', 'first_name', 'last_name', 'statement_name', 'score']
 
 
 class StandardList (ListView):
