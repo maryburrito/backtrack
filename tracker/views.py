@@ -23,10 +23,6 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView    
 
-class Login(LoginView):
-    template_name = 'Login.html'
- 
-
 def signup(request):
     if request.user.is_authenticated:
         return redirect('home')
