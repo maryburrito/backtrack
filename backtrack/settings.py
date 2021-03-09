@@ -138,3 +138,5 @@ STATIC_ROOT = os.environ.get("DJANGO_STATIC_ROOT", os.path.join(BASE_DIR, 'stati
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 LOGIN_URL = '/login'
+LOGIN_REDIRECT_URL = '/students/'
+
