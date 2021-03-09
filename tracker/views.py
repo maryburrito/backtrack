@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse, reverse_lazy
 
@@ -15,75 +14,108 @@ from django.urls import reverse, reverse_lazy
 
 
 from tracker.models import Student, Standard, Assessment
+from django.shortcuts import redirect
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import logout
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+ 
+def signup(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return redirect('home')
+        else:
+            return render(request, 'signup.html', {'form': form})
+    else:
+        form = UserCreationForm()
+        return render(request, 'signup.html', {'form': form})
+
+def signout(request):
+    logout(request)
+    # TODO : use signout.html to confirm user signout 
+    return redirect('home')
 
 
-def hello_world(request):
-    return HttpResponse("Hello, world!")
+
+def home(request):
+    return render(request, "home.html")
 
 
-class StudentList(ListView):
+class StudentList(LoginRequiredMixin, ListView):
     model = Student
 
 
-class StudentCreate(CreateView):
+class StudentCreate(LoginRequiredMixin, CreateView):
     model = Student
     fields = ['active', 'first_name', 'last_name']
 
 
-class StudentUpdate(UpdateView):
+class StudentUpdate(LoginRequiredMixin, UpdateView):
     model = Student
     fields = ['active', 'first_name', 'last_name']
 
 
-class StudentDelete(DeleteView):
+class StudentDelete(LoginRequiredMixin, DeleteView):
     model = Student
     success_url = reverse_lazy('student-list')
 
-class StudentDetail(DetailView):
+class StudentDetail(LoginRequiredMixin, DetailView):
     model = Student
+    fields = ['active', 'first_name', 'last_name', 'statement_name', 'score']
 
 
-class StandardList (ListView):
+class StandardList (LoginRequiredMixin, ListView):
     model = Standard
 
 
-class StandardCreate(CreateView):
-    model = Standard
-    fields = ['active', 'statement_name']
-
-
-class StandardUpdate(UpdateView):
+class StandardCreate(LoginRequiredMixin, CreateView):
     model = Standard
     fields = ['active', 'statement_name']
 
 
-class StandardDelete(DeleteView):
+class StandardUpdate(LoginRequiredMixin, UpdateView):
+    model = Standard
+    fields = ['active', 'statement_name']
+
+
+class StandardDelete(LoginRequiredMixin, DeleteView):
     model = Standard
     success_url = reverse_lazy('standard-list')
 
-class StandardDetail(DetailView):
+class StandardDetail(LoginRequiredMixin, DetailView):
     model = Standard
 
 
-class AssessmentList (ListView):
+class AssessmentList (LoginRequiredMixin, ListView):
     model = Assessment
 
 
-class AssessmentCreate(CreateView):
-    model = Assessment
-    fields = ['student', 'standard', 'score']
-
-
-class AssessmentUpdate(UpdateView):
+class AssessmentCreate(LoginRequiredMixin, CreateView):
     model = Assessment
     fields = ['student', 'standard', 'score']
 
 
-class AssessmentDelete(DeleteView):
+class AssessmentUpdate(LoginRequiredMixin, UpdateView):
+    model = Assessment
+    fields = ['student', 'standard', 'score']
+
+
+class AssessmentDelete(LoginRequiredMixin, DeleteView):
     model = Assessment
     success_url = reverse_lazy('assessment-list')
 
-class AssessmentDetail(DetailView):
+class AssessmentDetail(LoginRequiredMixin, DetailView):
     model = Assessment
 
 

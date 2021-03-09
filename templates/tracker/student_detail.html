@@ -1,11 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>
-    <small>
-        Name
-    </small>
-    {{object.first_name}} {{object.last_name}}
+    {{object.first_name}} {{object.last_name}} 
 </h1>
+<ul> 
+    {% for a in object.assessment_set.all %}
+        <li>{{a.standard.statement_name}}: {{a.score}}</li>
+    {% empty %}
+        <li>This student has no assessments</li>
+    {% endfor %}
+</ul>
 <p>
     Active: {{object.active}}
 </p>

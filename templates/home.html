@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block content %}
+<main role="main" class="container bg-info">
+    <div class="jumbotron bg-info">
+      <h1 class="text-white">Welcome!</h1>
+      <p class="lead text-white">You can now view your class's progress and make groups easier than ever before!</p>
+      <a class="btn btn-lg btn-dark" href="{% url "student-list" %}" role="button">Go To Your Class &raquo;</a>
+    </div>
+  </main>
+{% endblock %}
