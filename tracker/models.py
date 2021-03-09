@@ -3,10 +3,6 @@ from django.utils import timezone
 from django.urls import reverse
 from django.contrib.auth.forms import AuthenticationForm
 
-class AuthenticationFormWithInactiveUsersOkay(AuthenticationForm):
-    def confirm_login_allowed(self, user):
-        pass
-
 class TimestampedBaseModel(models.Model):
     class Meta:
         abstract = True

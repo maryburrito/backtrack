@@ -1,6 +1,6 @@
 from django.urls import path
-
-from tracker.views import home, signup, signout, login
+from django.contrib.auth.views import LoginView
+from tracker.views import home, signup, signout
 from tracker.views import StudentList, StudentCreate, StudentDelete, StudentUpdate, StudentDetail
 from tracker.views import AssessmentList, AssessmentCreate, AssessmentDelete, AssessmentUpdate, StandardDetail
 from tracker.views import StandardCreate, StandardList, StandardDelete, StandardUpdate, AssessmentDetail
@@ -9,10 +9,10 @@ from tracker.views import reverse, reverse_lazy
 
 
 urlpatterns = [
-    path('login/', login, name="login"),
+    path('', home, name='home'),
+    path('login/', LoginView.as_view(template_name = 'login.html'), name="login"),
     path('signup/', signup, name='signup'),
     path('signout/', signout, name='signout'),
-    path('', home, name='home'),
     path('students/', StudentList.as_view(), name='student-list'),
     path('student/add/', StudentCreate.as_view(), name ='student-add'),
     path('student/<int:pk>/', StudentUpdate.as_view(), name ='student-update'),
