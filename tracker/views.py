@@ -21,8 +21,12 @@ from django.contrib.auth import logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView    
 
+class Login(LoginView):
+    template_name = 'Login.html'
  
+
 def signup(request):
     if request.user.is_authenticated:
         return redirect('home')
@@ -45,7 +49,6 @@ def signout(request):
     logout(request)
     # TODO : use signout.html to confirm user signout 
     return redirect('home')
-
 
 
 def home(request):
