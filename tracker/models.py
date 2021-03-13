@@ -43,7 +43,7 @@ class Student(TimestampedBaseModel):
 
 class Standard(TimestampedBaseModel):
     active = models.BooleanField(default=True)
-    statement_name = models.CharField(max_length=100, null=False, blank=False)
+    statement_name = models.CharField(max_length=200, null=False, blank=False)
 
     def get_absolute_url(self):
         return reverse('standard-detail', kwargs={'pk': self.pk})
@@ -51,10 +51,21 @@ class Standard(TimestampedBaseModel):
     def __str__(self):
         return f" {self.statement_name}"
 
+SEMESTER_CHOICES = ( 
+    ("BOY", "BOY"), 
+    ("MOY", "MOY"), 
+    ("EOY", "EOY"), 
+)
+
 class Assessment(TimestampedBaseModel):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     standard = models.ForeignKey(Standard, on_delete=models.CASCADE)
     score = models.IntegerField(null = False)
+    semester = models.CharField( 
+        max_length = 20, 
+        choices = SEMESTER_CHOICES, 
+        default = 'BOY'
+        ) 
 
     def save(self, *args, **kwargs):
         if self.score < 1 or self.score > 4:
@@ -64,4 +75,8 @@ class Assessment(TimestampedBaseModel):
 
     def get_absolute_url(self):
         return reverse('assessment-detail', kwargs={'pk': self.pk})
+
+
+
+  
 

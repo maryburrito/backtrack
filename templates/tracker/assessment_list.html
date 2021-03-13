@@ -15,7 +15,7 @@
             <th scope="col">Student First</th>
             <th scope="col">Student Last</th>
             <th scope="col">Score</th>
-            <th scope="col">Active</th>
+            <th scope="col">Semester</th>
         </tr>
     </thead>
     <tbody>
@@ -48,7 +48,7 @@
             </td>
             <td>
                 <a href="{% url "assessment-detail" pk=assessment.pk %}">
-                    {{assessment.active}}
+                    {{assessment.semester}}
                 </a>
             </td>
         </tr>

@@ -71,7 +71,7 @@ class StudentDelete(LoginRequiredMixin, DeleteView):
 
 class StudentDetail(LoginRequiredMixin, DetailView):
     model = Student
-    fields = ['active', 'first_name', 'last_name', 'statement_name', 'score']
+    fields = ['active', 'first_name', 'last_name', 'statement_name', 'score', 'semester']
 
 
 class StandardList (LoginRequiredMixin, ListView):
@@ -102,12 +102,12 @@ class AssessmentList (LoginRequiredMixin, ListView):
 
 class AssessmentCreate(LoginRequiredMixin, CreateView):
     model = Assessment
-    fields = ['student', 'standard', 'score']
+    fields = ['student', 'standard', 'score', "semester"]
 
 
 class AssessmentUpdate(LoginRequiredMixin, UpdateView):
     model = Assessment
-    fields = ['student', 'standard', 'score']
+    fields = ['student', 'standard', 'score', "semester"]
 
 
 class AssessmentDelete(LoginRequiredMixin, DeleteView):
