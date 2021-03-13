@@ -20,7 +20,6 @@
       <a class="p-2 text-dark" href="{% url "standard-list" %}">Standards</a>
       <a class="p-2 text-dark" href="{% url "assessment-list" %}">Assessments</a>
     </nav>
-    {% else %}
     {% endif %}
     <div>
       {% if user.is_authenticated %}
@@ -28,7 +27,10 @@
           Sign Out
           </a>
       {% else %}
-        <a href="{% url "login" %}" class="btn btn-primary btn-sm ml-2">
+      <a href="{% url "signup" %}" class="btn btn-primary btn-sm ml-2">
+        Sign Up
+        </a>
+      <a href="{% url "login" %}" class="btn btn-success btn-sm ml-2">
         Login
         </a>
       {% endif %}
