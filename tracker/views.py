@@ -1,18 +1,8 @@
 from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse, reverse_lazy
-
-# list resources, create resources, read resources, update resources, and delete resources (CRUDL - Create, Read, Updadta, Delete)
-# Django Admin - CRUD application , roles associated with each CRUD action 
-# DetailView - view details about an object, ListView - lists items, FormView, CreateView, UpdateView, DeleteView 
-# since Django knows about data models (models.py) 
-#URLs: Paths, query parameters, ect. 
-#Scheme - HTTPS , host - domain using, path - the resource , query string - affect data displays, hash location - refer to somethin on the page
-
 from django.views.generic import ListView, DetailView
 from django.urls import reverse, reverse_lazy
-
-
 from tracker.models import Student, Standard, Assessment
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login
@@ -22,6 +12,10 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView    
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
+from tracker.groups import ResolveGroups
+from tracker.forms import GroupForm
 
 def signup(request):
     if request.user.is_authenticated:
@@ -43,13 +37,21 @@ def signup(request):
 
 def signout(request):
     logout(request)
-    # TODO : use signout.html to confirm user signout 
     return redirect('home')
-
 
 def home(request):
     return render(request, "home.html")
 
+def groupform(request):
+    form = GroupForm(request.GET)
+    context = {
+        'form': form
+    }
+    if form.is_valid(): 
+        print(form.cleaned_data['selected_standards'], form.cleaned_data['numbergroups'])
+        context["sorted_students"] = ResolveGroups(form.cleaned_data['numbergroups'], form.cleaned_data['selected_standards'])
+
+    return render(request, 'groups.html', context)
 
 class StudentList(LoginRequiredMixin, ListView):
     model = Student
@@ -118,9 +120,7 @@ class AssessmentDetail(LoginRequiredMixin, DetailView):
     model = Assessment
 
 
-    #  def get_query(self):
-    #     queryset = Student.objects.all()
-    #     tag_qp = self.request.GET.getlist('tag')
-    #     if tag_qp:
-    #         return queryset.filter(tags__slug__in=tag_qp)
-    #     return queryset
+def load_standards(request):
+    standard = Standards.objects.all().order_by('standard__statement')
+    return render(request, 'hr/grou_form.html', {'standard': standard})
+

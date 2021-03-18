@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block content %}
+<form action="/groups/" method="GET">
+    {% bootstrap_form form %}
+    <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
+</form>
+<hr />
+{% if sorted_students %}
+{% for item in sorted_students %} 
+<p>Group: {{item.group_id}}: {{item.student}}, Average Score: {{item.score}}</p>
+    {% endfor %}
+    {% endif %}
+{% endblock %}
