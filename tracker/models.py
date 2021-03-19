@@ -65,7 +65,7 @@ class Assessment(TimestampedBaseModel):
         max_length = 20, 
         choices = SEMESTER_CHOICES, 
         default = 'BOY'
-        ) 
+    ) 
 
     def save(self, *args, **kwargs):
         if self.score < 1 or self.score > 4:
@@ -75,8 +75,3 @@ class Assessment(TimestampedBaseModel):
 
     def get_absolute_url(self):
         return reverse('assessment-detail', kwargs={'pk': self.pk})
-
-
-
-  
-

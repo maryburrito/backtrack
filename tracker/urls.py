@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.auth.views import LoginView
-from tracker.views import home, signup, signout
+from tracker.views import home, signup, signout, groupform
 from tracker.views import StudentList, StudentCreate, StudentDelete, StudentUpdate, StudentDetail
 from tracker.views import AssessmentList, AssessmentCreate, AssessmentDelete, AssessmentUpdate, StandardDetail
 from tracker.views import StandardCreate, StandardList, StandardDelete, StandardUpdate, AssessmentDetail
@@ -28,4 +28,5 @@ urlpatterns = [
     path('assessment/<int:pk>/', AssessmentUpdate.as_view(), name ='assessment-update'),
     path('assessment/<int:pk>/delete/', AssessmentDelete.as_view(), name ='assessment-delete'),
     path('assessments/<int:pk>/', AssessmentDetail.as_view(), name="assessment-detail"),
+    path('groups/', groupform, name='group-form'),
 ]
