@@ -16,10 +16,10 @@ jobs:
     - name: Publish Backtrack Server to Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
-        name: docker.pkg.github.com/maryburrito/backtrack/backtrack-server:latest
-        username: maryburrito
-        password: ${{ secrets.GITHUB_TOKEN }}
-        registry: docker.pkg.github.com
+        name: registry.digitalocean.com/parrotmac/backtrack-server:latest
+        username: ${{ secrets.DO_REGISTRY_TOKEN }}
+        password: ${{ secrets.DO_REGISTRY_TOKEN }}
+        registry: registry.digitalocean.com
         context: .
         dockerfile: Dockerfile
         buildoptions: "--label git_sha=${GITHUB_SHA}"
